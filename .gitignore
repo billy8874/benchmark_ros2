@@ -1,0 +1,9 @@
+build/
+imgs/
+install/
+log/
+output/
+small_result/
+*.npy
+*.csv
+
