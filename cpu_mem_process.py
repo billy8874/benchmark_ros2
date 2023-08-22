@@ -5,7 +5,8 @@ import sys
 def main():
     fre = sys.argv[1]
     sub_num = sys.argv[2]
-    size = sys.argv[3]
+    pub_num = sys.argv[3]
+    size = sys.argv[4]
 
     usage = np.zeros((6, 2),dtype=np.double)
     payloads = []
@@ -26,7 +27,7 @@ def main():
 
     print("CPU and Memory Usage: ", usage)
     # Save to .npy file
-    filename = 'result/cpu_mem/1v'+sub_num+'_'+size+'_'+fre+'hz'
+    filename = 'result/cpu_mem/1v'+sub_num+'_x'+pub_num+'_'+size+'_'+fre+'hz'
     np.save(filename,usage)
     
 if __name__ == "__main__":

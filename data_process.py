@@ -32,7 +32,6 @@ def main():
         x = data_max[None,:]
         np.save(filename,x)
     
-    
 
 if __name__ == "__main__":
     main()
