@@ -11,16 +11,18 @@ if [[ "$test_type" == "small" ]]; then
     do
         for hz in 100
         do
-            for n in 1 5 10
+            for n in 1 10
             do
                 ((wait_time=data/hz+2))
                 for payload in 8B 80B 200B 500B 1000B 2000B
                 do
                     timeout $wait_time ros2 launch cpp_benchmark broadcast.launch.py payload_size:=$payload frequency:=$hz n_sub:=${n} m_pub:=${m} &
-                    timeout $wait_time ./sys_stats $payload $hz $n $m
+                    timeout $wait_time ./sys_stats $payload $hz $n $m & wait
                     python3 data_process.py $hz $n $m $test_type
+                    sleep 0.5
                 done
                 python3 cpu_mem_process.py $hz $n $m $test_type
+                sleep 0.5
             done
         done
     done
