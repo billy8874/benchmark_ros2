@@ -6,4 +6,4 @@ output/
 small_result/
 *.npy
 *.csv
-
+result_backup/

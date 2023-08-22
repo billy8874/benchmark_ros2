@@ -42,7 +42,7 @@ private:
     else if(count_==505) {
       RCLCPP_INFO(this->get_logger(), "finish! avg hz: %f", 499/(this->now().seconds()-t_start_));
       // write result to file
-      myfile.open(std::string("latency_") + std::string(this->get_name()) + std::string(".csv"));
+      myfile.open(std::string("result/latency/tmp/latency_") + std::string(this->get_name()) + std::string(".csv"));
       for(int i=0; i<500; i++){
         int64_t diff = latency_[i][1] % 1000000000 - latency_[i][0];
         (diff>0) ? myfile << diff/1000 << ',' : myfile << diff/1000+1000000 << ',';

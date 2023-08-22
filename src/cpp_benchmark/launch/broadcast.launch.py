@@ -33,7 +33,7 @@ def generate_launch_description():
     all_blocks = [payload_size_launch_arg, frequency_launch_arg, n_sub_launch_arg, m_pub_launch_arg]
 
     n = [int(s) for s in re.findall(r'\b\d+\b', sys.argv[6])][0]
-    m = 1
+    m = [int(s) for s in re.findall(r'\b\d+\b', sys.argv[7])][0]
 
     for i in range(m):
         all_blocks += [Node(
