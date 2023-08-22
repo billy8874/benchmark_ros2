@@ -7,3 +7,4 @@ small_result/
 *.npy
 *.csv
 result_backup/
+sys_stats
