@@ -11,18 +11,19 @@ using std::placeholders::_1;
 class MinimalSubscriber : public rclcpp::Node
 {
 public:
-  MinimalSubscriber()
+  MinimalSubscriber(char * argv[])
   : Node("minimal_subscriber"), count_(0)
   {
     subscription_ = this->create_subscription<cpp_benchmark::msg::Mydata>(
       "mydata", rclcpp::QoS(10).reliable(), std::bind(&MinimalSubscriber::topic_callback, this, _1));
+    n_sub = std::stod(argv[1]);
   }
 
 private:
   void topic_callback(const cpp_benchmark::msg::Mydata::SharedPtr msg)
   {
     // uint64_t t1 = (this->now() - msg->header.stamp).nanoseconds();
-    // int64_t t1 = msg->header.stamp.nanosec;
+    // int64_t t1 mp= msg->header.stamp.nanosec;
     // int64_t t2 = this->now().nanoseconds() % 1000000000;
 
     // std::cout << msg->header.frame_id << " time_now: " << msg->header.stamp.sec << " "; 
@@ -42,7 +43,9 @@ private:
     else if(count_==505) {
       RCLCPP_INFO(this->get_logger(), "finish! avg hz: %f", 499/(this->now().seconds()-t_start_));
       // write result to file
-      myfile.open(std::string("result/latency/tmp/latency_") + std::string(this->get_name()) + std::string(".csv"));
+      std::string nsub =  std::string(this->get_name()).substr(std::string(this->get_name()).find_first_of("0123456789"), 1);
+      std::string mpub =  std::string(this->get_namespace()).substr(std::string(this->get_namespace()).find_first_of("0123456789"), 1);
+      myfile.open(std::string("result/latency/tmp/latency_subscriber_") + std::to_string(std::stoi(nsub)+std::stoi(mpub)*n_sub) + std::string(".csv"));
       for(int i=0; i<500; i++){
         int64_t diff = latency_[i][1] % 1000000000 - latency_[i][0];
         (diff>0) ? myfile << diff/1000 << ',' : myfile << diff/1000+1000000 << ',';
@@ -61,12 +64,13 @@ private:
   int64_t latency_[500][2];
   double t_start_;
   std::ofstream myfile;
+  int8_t n_sub;
 };
 
 int main(int argc, char * argv[])
 {
   rclcpp::init(argc, argv);
-  rclcpp::spin(std::make_shared<MinimalSubscriber>());
+  rclcpp::spin(std::make_shared<MinimalSubscriber>(argv));
   rclcpp::shutdown();
   return 0;
 }

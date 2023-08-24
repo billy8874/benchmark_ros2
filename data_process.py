@@ -9,9 +9,9 @@ def main():
     pub_num = sys.argv[3]
     size = sys.argv[4]
 
-    np_data = np.zeros((int(sub_num),500),dtype=np.double)
+    np_data = np.zeros((int(sub_num)*int(pub_num),500),dtype=np.double)
 
-    for i in range(int(sub_num)):
+    for i in range(int(sub_num)*int(pub_num)):
         filename = 'result/latency/tmp/latency_subscriber_'+str(i)+'.csv'
         with open(filename, 'r') as f:
             reader = csv.reader(f)

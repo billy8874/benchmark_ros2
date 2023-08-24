@@ -1,19 +1,19 @@
 #!/bin/bash
 
 data=505
-test_type="large"
+test_type="small"
 
 echo "Launching application, please wait!"
 
 if [[ "$test_type" == "small" ]]; then
     # small payloads
-    for m in 1 #2 5 10
+    for m in 7 #2 5 10
     do
         for hz in 100
         do
-            for n in 1 10
+            for n in 5
             do
-                ((wait_time=data/hz+2))
+                ((wait_time=data/hz+5))
                 for payload in 8B 80B 200B 500B 1000B 2000B
                 do
                     timeout $wait_time ros2 launch cpp_benchmark broadcast.launch.py payload_size:=$payload frequency:=$hz n_sub:=${n} m_pub:=${m} &

@@ -40,5 +40,5 @@ def generate_launch_description():
             namespace='block'+str(i), package='cpp_benchmark', executable='data_pub', name='publisher', arguments=[payload_size,frequency]),]
         for j in range(n):
             all_blocks += [Node(
-                namespace='block'+str(i), package='cpp_benchmark', executable='data_sub', name='subscriber_'+str(j)),]
+                namespace='block'+str(i), package='cpp_benchmark', executable='data_sub', name='subscriber_'+str(j), arguments=[n_sub]),]
     return LaunchDescription(all_blocks)
