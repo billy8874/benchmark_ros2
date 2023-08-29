@@ -1,4 +1,4 @@
-# Robot arm development &middot; [![ROS noetic](https://img.shields.io/badge/ROS2-Humble-blue)](https://docs.ros.org/en/humble/index.html)
+# ROS2 Benchmark; [![ROS noetic](https://img.shields.io/badge/ROS2-Humble-blue)](https://docs.ros.org/en/humble/index.html)
 
 This is a ROS2 package using with minimal publisher and subscriber to benchmarking and comparing the performance between different middlewares.
 
